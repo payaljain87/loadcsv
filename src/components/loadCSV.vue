@@ -9,34 +9,27 @@
                 <input type="file" id="csv_file" name="csv_file" class="form-control" @change="loadCSV($event)">
               </div>
             </div>
-            <div class="col-sm-offset-3 col-sm-9">  
               <br>
-              <button class="button" @click="showModal = true"> View CSV </button>
-                <transition name="fade" appear>
-                <div class="modal-overlay" v-if="showModal" @click="showModal = false"></div>
-                </transition>
-                <transition name="slide" appear>
-                <div class="modal" v-if="showModal" style="max-height:500px;overflow:scroll">
-                  <table v-if="parse_csv">
-                    <thead>
-                    <tr>
-                    <th v-bind:for="key in parse_header" @click="sortBy(key)" :class="{ active: sortKey == key }"> {{ key | capitalize }}
+              <div class="col-sm-offset-3 col-sm-9">
+                <a href="#" class="btn btn-primary">View CSV</a>
+              </div>
+              <table v-if="parse_csv">
+                <thead>
+                  <tr>
+                    <th v-for="key in parse_header" :key="key" @click="sortBy(key)" :class="{ active: sortKey == key }"> {{ key | capitalize }}
                       <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"> </span>
                     </th>
-                    </tr>
-                    </thead> 
-                    <tr v-bind:for="csv in parse_csv">
-                      <td v-bind:for="key in parse_header">{{csv[key]}} </td>
-                    </tr>
-                  </table>
-                    <button class="button" @click="showModal = false">Close</button>
-                </div>
-                </transition>
+                  </tr>
+                </thead> 
+                  <tr v-for="(csv,index) in parse_csv" :key="index">
+                    <td v-for="key in parse_header" :key="key">{{csv[key]}} </td>
+                  </tr>
+                </table>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    
 </template>
 
 <script>
@@ -50,7 +43,7 @@ export default{
       parse_csv: [],
       sortOrders:{},
       sortKey: '',
-      showModal:false,
+      modal:false
 
     };
   },
@@ -136,40 +129,5 @@ td, th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
-}
-.modal-overlay {
-    position: absolute;
-    z-index: 98;
-}
-.modal {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 99;
-    height:100%;
-    max-height:400px;
-    width: 100%;
-    max-width: 400px;
-    background-color: silver;
-    border-radius: 16px;
-    padding: 25px;
-    border-color:red;
-}
-.fade-enter-active,
-.fade-leave-active {
-    transition: opacity .5s;
-}
-.fade-enter,
-.fade-leave-to {
-    opacity: 0;
-}
-.slide-enter-active,
-.slide-leave-active {
- transition: transform .5s;
-}
-.slide-enter,
-.slide-leave-to {
- transform: translateY(-50%) translateX(100vw);
 }
 </style>
