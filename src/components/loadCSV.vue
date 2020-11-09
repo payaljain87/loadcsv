@@ -1,7 +1,5 @@
 <template>
     <div id="app">
-      <div class="container">
-        <div class="panel panel-sm">
           <div class="panel-body">
             <div class="form-group">
               <label for="csv_file" class="control-label col-sm-3 text-right">CSV file to import</label>
@@ -26,10 +24,7 @@
                   </tr>
                 </table>
             </div>
-          </div>
-        </div>
-      </div>
-    
+          </div>    
 </template>
 
 <script>
@@ -110,10 +105,6 @@ html, body {
 body {
   margin: 32px auto;
 } 
-.panel.panel-sm {
-  max-width: 700px;
-  margin: 10px auto;
-}
 .panel-heading {
   border-bottom: 2px solid #dfdfdf;
 }
