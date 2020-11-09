@@ -1,30 +1,30 @@
 <template>
-    <div id="app">
-          <div class="panel-body">
-            <div class="form-group">
-              <label for="csv_file" class="control-label col-sm-3 text-right">CSV file to import</label>
-              <div class="col-sm-9">
-                <input type="file" id="csv_file" name="csv_file" class="form-control" @change="loadCSV($event)">
-              </div>
-            </div>
-              <br>
-              <div class="col-sm-offset-3 col-sm-9">
-                <a href="#" class="btn btn-primary">View CSV</a>
-              </div>
-              <table v-if="parse_csv">
-                <thead>
-                  <tr>
-                    <th v-for="key in parse_header" :key="key" @click="sortBy(key)" :class="{ active: sortKey == key }"> {{ key | capitalize }}
-                      <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"> </span>
-                    </th>
-                  </tr>
-                </thead> 
-                  <tr v-for="(csv,index) in parse_csv" :key="index">
-                    <td v-for="key in parse_header" :key="key">{{csv[key]}} </td>
-                  </tr>
-                </table>
-            </div>
-          </div>    
+  <div id="app">
+    <div class="panel-body">
+      <div class="form-group">
+        <label for="csv_file" class="control-label col-sm-3 text-right">CSV file to import</label>
+          <div class="col-sm-9">
+            <input type="file" id="csv_file" name="csv_file" class="form-control" @change="loadCSV($event)">
+          </div>
+      </div>
+      <br>
+      <div class="col-sm-offset-3 col-sm-9">
+        <a href="#" class="btn btn-primary" v-on:click="showcsv=true">View CSV</a>
+      </div>
+      <table v-if="showcsv && parse_csv">
+        <thead>
+          <tr>
+            <th v-for="key in parse_header" :key="key" @click="sortBy(key)" :class="{ active: sortKey == key }"> {{ key | capitalize }}
+              <span class="arrow" :class="sortOrders[key] > 0 ? 'asc' : 'dsc'"> </span>
+            </th>
+          </tr>
+        </thead> 
+        <tr v-for="(csv,index) in parse_csv" :key="index">
+          <td v-for="key in parse_header" :key="key">{{csv[key]}} </td>
+        </tr>
+      </table>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -38,7 +38,7 @@ export default{
       parse_csv: [],
       sortOrders:{},
       sortKey: '',
-      modal:false
+      showcsv:false
 
     };
   },
